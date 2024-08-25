@@ -1,0 +1,104 @@
+{
+  "name": "dockerfile-tidy",
+  "displayName": "Dockerfile Tidy",
+  "publisher": "toluwaanimi",
+  "icon": "icon.jpg",
+  "description": "Automatically formats and tidies up Dockerfiles, ensuring a clean, consistent, and well-organized structure with proper indentation and alignment.",
+  "version": "0.0.7",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dockerfile-tidy.formatDockerfile",
+        "title": "Format Dockerfile"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "dockerfile-tidy.formatDockerfile",
+        "key": "ctrl+alt+f",
+        "when": "editorTextFocus && editorLangId == dockerfile"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "dockerfile-tidy.formatDockerfile",
+          "when": "editorLangId == dockerfile",
+          "group": "navigation"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "dockerfile",
+        "aliases": [
+          "Dockerfile",
+          "dockerfile"
+        ],
+        "extensions": [
+          ".dockerfile"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[dockerfile]": {
+        "editor.formatOnSave": true
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "dockerfile-tidy.formatOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically format Dockerfiles on save."
+        }
+      }
+    }
+  },
+  "homepage": "https://github.com/toluwaanimi/dockerfile-tidy",
+  "bugs": {
+    "url": "https://github.com/toluwaanimi/dockerfile-tidy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toluwaanimi/dockerfile-tidy.git"
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.92.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "eslint": "^8.57.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
